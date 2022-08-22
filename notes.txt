@@ -1,0 +1,3 @@
+//mytest
+// difference between observable and promise;
+//observable returns data in the form of chunks while promises does not
