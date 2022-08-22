@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { LoginService } from '../core/services/login.service';
 import {EmployeeService} from "../core/services/empService/emp.service"
 
 import {EmpData} from "../core/models/users.model"
@@ -25,7 +24,6 @@ export class EmployeeComponent implements OnInit {
   })
 
   }
-  // displayedColumns: string[] = ['code','fname','mname','lname', 'gender', 'userType','salary','pin','address1','address2','btns'];
   displayedColumns: string[] = ['code','fname','mname','lname','email','contact','btns'];
 
   

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core'
-import { Observable, ReplaySubject,catchError,throwError } from 'rxjs';
+import { Observable, ReplaySubject, catchError, throwError } from 'rxjs';
 import { EmpData } from '../../models/users.model'
 
 @Injectable()
@@ -13,9 +13,8 @@ export class EmployeeService {
     constructor(private _http: HttpClient) {
 
     }
-   
+
     getEmployeeByApi(): Observable<EmpData[]> {
-        // console.log(this._http.get<EmpData[]>(this.employeeURL));
         return this._http.get<EmpData[]>(this.employeeURL);
     }
 
@@ -27,12 +26,12 @@ export class EmployeeService {
         return this.employeesArray;
     }
 
-   
+
 
     getName(name: string): string {
         return "Mr. " + name;
     }
-   
+
 
 
     temp: any = {}
@@ -42,13 +41,13 @@ export class EmployeeService {
         let subject = new ReplaySubject();
         this._http.get<EmpData[]>(this.employeeURL).subscribe((data) => {
             data.map(item => {
-                    if (item.code == id) {
-                        console.log(item);
-                        this.temp = item;
-                    }
-    
-                })
-                subject.next(this.temp);
+                if (item.code == id) {
+                    console.log(item);
+                    this.temp = item;
+                }
+
+            })
+            subject.next(this.temp);
             subject.complete();
         });
         return subject
@@ -60,10 +59,10 @@ export class EmployeeService {
 
             return empdata
 
-            
+
 
         })
-       
+
     }
 
 }

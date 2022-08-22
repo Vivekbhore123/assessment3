@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { EmployeeComponent } from './employee.component';
 import { ViewComponent } from './view/view.component';
 import { EditComponent } from './edit/edit.component';
-// import { DeleteComponent } from './delete/delete.component';
 import { FormsModule } from '@angular/forms';
 
 import {MatTableModule} from '@angular/material/table';
@@ -22,7 +21,6 @@ import {MatButtonModule} from '@angular/material/button';
     EmployeeComponent,
     ViewComponent,
     EditComponent,
-    // DeleteComponent,
     SelectAgeValidator,
     SelectPinValidator,
     SelectValidator,

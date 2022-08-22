@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import {NgForm} from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import { MatDialog } from '@angular/material/dialog';
 import { DialogElementsExampleDialog } from './dialogelement/dialogelement';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeComponent } from '../employee.component';
-// import { LoginService } from 'src/app/core/services/login.service';
-import {EmployeeService} from "../../core/services/empService/emp.service"
-import {EmpData} from "../../core/models/users.model"
- 
-// import {Gender} from "../../core/models/users.model";
+import { EmployeeService } from "../../core/services/empService/emp.service"
+
 
 
 interface City {
@@ -18,18 +15,18 @@ interface City {
 }
 
 interface State {
-  id:number,
+  id: number,
   value: string;
   viewValue: string;
-  cities:City[];
+  cities: City[];
 }
 
 
 interface Country {
-  id:number,
+  id: number,
   value: string;
   viewValue: string;
-  states:State[];
+  states: State[];
 }
 
 
@@ -38,156 +35,156 @@ interface Country {
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
-  providers:[DialogElementsExampleDialog,EmployeeComponent,EmployeeService]
+  providers: [DialogElementsExampleDialog, EmployeeComponent, EmployeeService]
 })
 export class EditComponent implements OnInit {
 
- 
-
-  fname:string = "";
-  mname:string = "";
-  lname:string = "";
-  age:number=0;
-  gender:string = "";
-  
-   country:String = "";
-   pin:Number = 0;
-   state:String="";
-   dob:String="";
-   city:String="";
-   address1:String="";
-   address2:String="";
-
-   contact:string="";
-   email:string="";
-   userType:string="";
-   
 
 
- 
+  fname: string = "";
+  mname: string = "";
+  lname: string = "";
+  age: number = 0;
+  gender: string = "";
 
-   openDialog() {
+  country: String = "";
+  pin: Number = 0;
+  state: String = "";
+  dob: String = "";
+  city: String = "";
+  address1: String = "";
+  address2: String = "";
+
+  contact: string = "";
+  email: string = "";
+  userType: string = "";
+
+
+
+
+
+  openDialog() {
     this.dialog.open(DialogElementsExampleDialog);
   }
 
 
-  EmployeeId:string|null='';
+  EmployeeId: string | null = '';
 
-  constructor(private _route:ActivatedRoute,private obj:EmployeeComponent,public dialog: MatDialog,private empservice:EmployeeService){
+  constructor(private _route: ActivatedRoute, private obj: EmployeeComponent, public dialog: MatDialog, private empservice: EmployeeService) {
 
   }
-  dataTofill:any={};
+  dataTofill: any = {};
   ngOnInit(): void {
-    
-    this.EmployeeId= this._route.snapshot.paramMap.get('code'); 
-    console.log("testing",this.EmployeeId)
-      
-   
-    this.empservice.getEmpById(this.EmployeeId).subscribe((item)=>{
+
+    this.EmployeeId = this._route.snapshot.paramMap.get('code');
+    console.log("testing", this.EmployeeId)
+
+
+    this.empservice.getEmpById(this.EmployeeId).subscribe((item) => {
       console.log(item);
       this.dataTofill = item;
-    }); 
+    });
 
-   
-    
+
+
 
     console.log(this.dataTofill)
   }
 
-  
-  
-fullName:string="";
-// email:string="";
 
 
-savePerson(form:NgForm){
-  console.log(form);
-  console.log("**************");
-  console.log(typeof form.value.gender);
-
-}
+  fullName: string = "";
+  // email:string="";
 
 
- 
-genders:any[]=[
-  {viewValue:-1,Text:"Select Gender"},
-  {viewValue:1,Text:"male"},
-  {viewValue:2,Text:"female"} 
-];
+  savePerson(form: NgForm) {
+    console.log(form);
+    console.log("**************");
+    console.log(typeof form.value.gender);
 
-
-usertypes:any[]=[
-  {viewValue:-1,Text:"Select Usertype"},
-  {viewValue:1,Text:"Contractual"},
-  {viewValue:2,Text:"Permenant"} 
-];
-
-
-countryArray: Country[] = [
-  {id:0,value: 'India', viewValue: 'India',states:[
-    {id:0,value: 'Maharashtra', viewValue: 'Maharashtra',
-    cities:[
-      {value: 'Mumbai', viewValue: 'Mumbai'},
-    {value: 'Pune', viewValue: 'Pune'},
-    {value: 'Nagpur', viewValue: 'Nagpur'}
-    ]},
-  {id:1,value: 'Bihar', viewValue: 'Bihar',
-  cities:[
-    {value: 'b1', viewValue: 'b1'},
-  {value: 'b2', viewValue: 'b2'},
-  {value: 'b3', viewValue: 'b3'}
-  ]
-},
-  {id:2,value: 'Karnataka', viewValue: 'Karnataka',
-  cities:[
-    {value: 'k1', viewValue: 'k1'},
-  {value: 'k2', viewValue: 'k2'},
-  {value: 'k3', viewValue: 'k3'}
-  ]
-}
-  ]},
- 
-];
-
-countryIndex:number=0;
-stateIndex:number=0;
-
-detectCountryChange(country:any)
-{
-console.log(country);
-console.log((country.target as HTMLInputElement).innerText);
-this.country = (country.target as HTMLInputElement).innerText;
-for(let i=0;i<this.countryArray.length;i++)
-{
-  if(this.countryArray[i].value==this.country)
-  {
-    this.countryIndex = this.countryArray[i].id;
-    console.log(this.countryArray[this.countryIndex].states)
   }
-}
-}
 
 
-detectStateChange(state:any)
-{
-console.log(state);
-console.log((state.target as HTMLInputElement).innerText);
-this.state = (state.target as HTMLInputElement).innerText;
-for(let i=0;i<this.countryArray[this.countryIndex].states.length;i++)
-{
-  if(this.countryArray[this.countryIndex].states[i].value==this.state)
-  {
-    this.stateIndex = this.countryArray[this.countryIndex].states[i].id;
-    // console.log(this.countryArray[this.countryIndex].states)
+
+  genders: any[] = [
+    { viewValue: -1, Text: "Select Gender" },
+    { viewValue: 1, Text: "male" },
+    { viewValue: 2, Text: "female" }
+  ];
+
+
+  usertypes: any[] = [
+    { viewValue: -1, Text: "Select Usertype" },
+    { viewValue: 1, Text: "Contractual" },
+    { viewValue: 2, Text: "Permenant" }
+  ];
+
+
+  countryArray: Country[] = [
+    {
+      id: 0, value: 'India', viewValue: 'India', states: [
+        {
+          id: 0, value: 'Maharashtra', viewValue: 'Maharashtra',
+          cities: [
+            { value: 'Mumbai', viewValue: 'Mumbai' },
+            { value: 'Pune', viewValue: 'Pune' },
+            { value: 'Nagpur', viewValue: 'Nagpur' }
+          ]
+        },
+        {
+          id: 1, value: 'Bihar', viewValue: 'Bihar',
+          cities: [
+            { value: 'b1', viewValue: 'b1' },
+            { value: 'b2', viewValue: 'b2' },
+            { value: 'b3', viewValue: 'b3' }
+          ]
+        },
+        {
+          id: 2, value: 'Karnataka', viewValue: 'Karnataka',
+          cities: [
+            { value: 'k1', viewValue: 'k1' },
+            { value: 'k2', viewValue: 'k2' },
+            { value: 'k3', viewValue: 'k3' }
+          ]
+        }
+      ]
+    },
+
+  ];
+
+  countryIndex: number = 0;
+  stateIndex: number = 0;
+
+  detectCountryChange(country: any) {
+    console.log(country);
+    console.log((country.target as HTMLInputElement).innerText);
+    this.country = (country.target as HTMLInputElement).innerText;
+    for (let i = 0; i < this.countryArray.length; i++) {
+      if (this.countryArray[i].value == this.country) {
+        this.countryIndex = this.countryArray[i].id;
+        console.log(this.countryArray[this.countryIndex].states)
+      }
+    }
   }
-}
-}
 
-doProcess(){
-  console.log(this.countryArray);
-  console.log(this.countryArray[0].states);
-  this.openDialog();
-}
+
+  detectStateChange(state: any) {
+    console.log(state);
+    console.log((state.target as HTMLInputElement).innerText);
+    this.state = (state.target as HTMLInputElement).innerText;
+    for (let i = 0; i < this.countryArray[this.countryIndex].states.length; i++) {
+      if (this.countryArray[this.countryIndex].states[i].value == this.state) {
+        this.stateIndex = this.countryArray[this.countryIndex].states[i].id;
+        // console.log(this.countryArray[this.countryIndex].states)
+      }
+    }
+  }
+
+  doProcess() {
+    console.log(this.countryArray);
+    console.log(this.countryArray[0].states);
+    this.openDialog();
+  }
 
 
 
